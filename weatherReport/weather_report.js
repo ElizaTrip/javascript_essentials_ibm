@@ -2,7 +2,7 @@ function showweatherDetails(event) {
     event.preventDefault();
 
     const city = document.getElementById('city').value;
-    const apiKey = '56c34f5072a21305cdd4e603d93839ae'; // Replace 'YOUR_API_KEY' with your actual API key
+    const apiKey = 'testapi'; // Replace 'YOUR_API_KEY' with your actual API key
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     fetch(apiUrl)
@@ -16,3 +16,24 @@ function showweatherDetails(event) {
 }
 
 document.getElementById('weatherForm').addEventListener('submit',showweatherDetails );
+
+function showDetailByLongAndLat(event){
+    event.preventDefault();
+
+    const lat  = document.getElementById('latitude').value;
+    const lon = document.getElementById('longitude').value;
+    const apiKey = 'testapi'; 
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const weatherInfo = document.getElementById('weatherInfo');
+      weatherInfo.innerHTML = `<h2>Weather in ${data.name}</h2>
+                              <p>Temperature: ${data.main.temp} &#8451;</p>
+                              <p>Weather: ${data.weather[0].description}</p>`;
+    })
+
+}
+
+document.getElementById('weatherbylatandlong').addEventListener('submit',showDetailByLongAndLat );
